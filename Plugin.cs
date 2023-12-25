@@ -34,11 +34,14 @@ namespace SharedInverseTeleporter.patches
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ShipTeleporter), "TeleportPlayerOutWithInverseTeleporter")]
-        public static void TeleportPlayerOutWithInverseTeleporter(int playerObj, ref Vector3 teleportPos, ShipTeleporter __instance)
+        public static void TeleportPlayerOutWithInverseTeleporter(int playerObj, ref Vector3 teleportPos)
         {
-            if (teleportValueSet) {
+            if (teleportValueSet)
+            {
                 teleportPos = _teleportPos;
-            } else {
+            }
+            else
+            {
                 _teleportPos = teleportPos;
                 teleportValueSet = true;
             }
@@ -52,5 +55,15 @@ namespace SharedInverseTeleporter.patches
         {
             teleportValueSet = false;
         }
+
+        [HarmonyPrefix]
+		[HarmonyPatch(typeof(ShipTeleporter), "Awake")]
+		private static void Awake(ShipTeleporter __instance)
+		{
+			if (__instance.isInverseTeleporter)
+			{
+				__instance.cooldownAmount = 10f;
+			}
+		}
     }
 }
