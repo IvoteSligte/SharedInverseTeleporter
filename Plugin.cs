@@ -63,6 +63,7 @@ namespace SharedInverseTeleporter.patches
 			if (__instance.isInverseTeleporter)
 			{
 				__instance.cooldownAmount = 10f;
+                Plugin.log.LogInfo("Reduced the cooldown of the inverse teleporter to 10 seconds.");
 			}
 		}
     }
