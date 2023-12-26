@@ -30,8 +30,8 @@ namespace SharedInverseTeleporter.patches
     [HarmonyPatch]
     class SharedInverseTeleporter
     {
+        private static System.Random _random = new System.Random(0);
         private static Vector3 _teleportPos;
-        private static int _teleportPosIndex = 0;
 
         [HarmonyPrefix]
         [HarmonyPatch(typeof(ShipTeleporter), "TeleportPlayerOutWithInverseTeleporter")]
@@ -46,9 +46,8 @@ namespace SharedInverseTeleporter.patches
         public static void SetTeleportPosition(bool ___isInverseTeleporter)
         {
             if (___isInverseTeleporter) {
-                _teleportPos = RoundManager.Instance.insideAINodes[_teleportPosIndex].transform.position;
-                _teleportPosIndex += 1;
-                _teleportPosIndex %= RoundManager.Instance.insideAINodes.Length;
+                int rand = _random.Next(0, RoundManager.Instance.insideAINodes.Length);
+                _teleportPos = RoundManager.Instance.insideAINodes[rand].transform.position;
             }
         }
 
