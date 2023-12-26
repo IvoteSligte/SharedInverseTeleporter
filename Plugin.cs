@@ -61,5 +61,13 @@ namespace SharedInverseTeleporter.patches
                 Plugin.log.LogInfo("Reduced the cooldown of the inverse teleporter to 10 seconds.");
 			}
 		}
+
+        [HarmonyPostfix]
+        [HarmonyPatch(typeof(StartOfRound), "StartGame")]
+        private static void StartGame()
+        {
+            _random = new System.Random(StartOfRound.Instance.randomMapSeed);
+            Plugin.log.LogInfo("Instantiated a new random number generator.");
+        }
     }
 }
