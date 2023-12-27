@@ -47,6 +47,7 @@ namespace SharedInverseTeleporter.patches
             if (___isInverseTeleporter) {
                 int rand = _random.Next(0, RoundManager.Instance.insideAINodes.Length);
                 _teleportPos = RoundManager.Instance.insideAINodes[rand].transform.position;
+                Plugin.log.LogInfo($"Set teleport position to {_teleportPos}");
             }
         }
 
@@ -66,6 +67,7 @@ namespace SharedInverseTeleporter.patches
         public static void GenerateNewLevelClientRpc(int ___randomSeed)
         {
             _random = new System.Random(___randomSeed);
+            Plugin.log.LogInfo($"Initialized a new random number generator with seed {___randomSeed}");
         }
     }
 }
