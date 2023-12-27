@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using BepInEx;
+﻿using BepInEx;
 using BepInEx.Logging;
 using HarmonyLib;
 using UnityEngine;
@@ -63,11 +62,10 @@ namespace SharedInverseTeleporter.patches
 		}
 
         [HarmonyPostfix]
-        [HarmonyPatch(typeof(StartOfRound), "StartGame")]
-        private static void StartGame()
+        [HarmonyPatch(typeof(RoundManager), "GenerateNewLevelClientRpc")]
+        public static void GenerateNewLevelClientRpc(int ___randomSeed)
         {
-            _random = new System.Random(StartOfRound.Instance.randomMapSeed);
-            Plugin.log.LogInfo("Instantiated a new random number generator.");
+            _random = new System.Random(___randomSeed);
         }
     }
 }
