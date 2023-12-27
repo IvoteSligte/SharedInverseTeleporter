@@ -64,10 +64,10 @@ namespace SharedInverseTeleporter.patches
 
         [HarmonyPostfix]
         [HarmonyPatch(typeof(RoundManager), "GenerateNewLevelClientRpc")]
-        public static void GenerateNewLevelClientRpc(int ___randomSeed)
+        public static void GenerateNewLevelClientRpc(int randomSeed)
         {
-            _random = new System.Random(___randomSeed);
-            Plugin.log.LogInfo($"Initialized a new random number generator with seed {___randomSeed}");
+            _random = new System.Random(randomSeed);
+            Plugin.log.LogInfo($"Initialized a new random number generator with seed {randomSeed}");
         }
     }
 }
